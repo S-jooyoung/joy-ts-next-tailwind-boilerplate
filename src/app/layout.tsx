@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import * as React from 'react';
 
 import '@/styles/globals.css';
-// !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
+
+import { Footer, Header } from '@/components/common';
 
 import { siteConfig } from '@/constant/config';
 
@@ -27,23 +27,23 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.title,
-    images: [`${siteConfig.url}/images/og.jpg`],
+    images: [`${siteConfig.url}/ogImage.png`],
     type: 'website',
-    locale: 'en_US',
+    locale: 'ko_KR',
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/images/og.jpg`],
-    // creator: '@th_clarence',
+    images: [`${siteConfig.url}/ogImage.png`],
+    creator: '@joy',
   },
-  // authors: [
-  //   {
-  //     name: 'Theodorus Clarence',
-  //     url: 'https://theodorusclarence.com',
-  //   },
-  // ],
+  authors: [
+    {
+      name: siteConfig.author,
+      url: siteConfig.url,
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -53,7 +53,25 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <main>
+          <Header
+            mainTitle={siteConfig.author}
+            subTitle={siteConfig.header.title}
+            firstLinkSrc={siteConfig.github.src}
+            firstLinkText={siteConfig.github.title}
+            secondLinkSrc={siteConfig.blog.src}
+            secondLinkText={siteConfig.blog.title}
+          />
+          <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+            {children}
+          </div>
+          <Footer
+            author={siteConfig.author}
+            githubUrl={siteConfig.github.src}
+          />
+        </main>
+      </body>
     </html>
   );
 }
